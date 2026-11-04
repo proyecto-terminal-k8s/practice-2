@@ -15,12 +15,14 @@ de acceso estable.
 
 ```bash
 cd ../calculadora-frontend
-docker build -t tu-registro/calculadora-frontend:v1 .
-docker push tu-registro/calculadora-frontend:v1
+docker build -t calculadora-frontend:v1 .
+minikube image load calculadora-frontend:v1
 cd ../practice-2
 ```
 
-Reemplaza `your-registry` por el registro real en el manifiesto de Deployment.
+El manifiesto ya usa la imagen local cargada en Minikube. Para usar un registro,
+cambia la imagen a `tu-registro/calculadora-frontend:v1`, ejecuta `docker push` y
+usa ese mismo nombre en `calculadora-deployment.yaml`.
 
 ## 1. Crear recursos
 

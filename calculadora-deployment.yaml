@@ -23,7 +23,7 @@ metadata:
     spec:
       containers:
         - name: frontend
-          image: your-registry/calculadora-frontend:v1
+          image: calculadora-frontend:v1
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
