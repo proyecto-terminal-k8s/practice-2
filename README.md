@@ -15,8 +15,23 @@ de acceso estable.
 
 ```bash
 cd ../calculadora-frontend
+```
+
+Entra al directorio que contiene el código y la imagen Docker del frontend.
+
+```bash
 docker build -t calculadora-frontend:v1 .
+```
+
+Construye la imagen que usará el Deployment.
+
+```bash
 minikube image load calculadora-frontend:v1
+```
+
+Carga la imagen localmente dentro del clúster Minikube.
+
+```bash
 cd ../practice-2
 ```
 
@@ -28,9 +43,29 @@ usa ese mismo nombre en `calculadora-deployment.yaml`.
 
 ```bash
 kubectl apply -f namespace.yaml
+```
+
+Crea el namespace `practice-2`.
+
+```bash
 kubectl apply -f calculadora-deployment.yaml
+```
+
+Crea el Deployment con tres réplicas del frontend.
+
+```bash
 kubectl apply -f calculadora-service-clusterip.yaml
+```
+
+Crea un Service estable de tipo `ClusterIP` para acceder al frontend dentro del clúster.
+
+```bash
 kubectl rollout status deployment/calculadora-frontend -n practice-2
+```
+
+Espera hasta que las tres réplicas estén disponibles.
+
+```bash
 kubectl get pods,endpointslices -n practice-2 -l app.kubernetes.io/name=calculadora-frontend
 ```
 
@@ -48,7 +83,17 @@ se conectarán al backend a partir de las prácticas posteriores.
 
 ```bash
 kubectl apply -f calculadora-service-nodeport.yaml
+```
+
+Reemplaza el Service `ClusterIP` por uno `NodePort`, manteniendo el nombre del recurso.
+
+```bash
 kubectl get service calculadora-frontend -n practice-2
+```
+
+Comprueba que el Service expone el puerto configurado `30080`.
+
+```bash
 minikube service calculadora-frontend --namespace=practice-2 --url
 ```
 
